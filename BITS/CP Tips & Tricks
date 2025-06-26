@@ -1,0 +1,152 @@
+CP Tips & Tricks
+
+1. How do you change a variable in whole code in VS code? - Highlight the variable name and press command+Shift+L . Then change your variable's name to whatever you want. 
+2. Sort the array in descending order - sort(arr, arr + n, greater<int>());
+3. s=s.substr(1); - this in the trick to remove the index 0 in the string , where 1 indicates us to print the substring from index 1 till end.
+4. How to convert an int to string - int p; cin>>p; string s; s=to_string(p);
+5. a.find(s) where a means the main string and s means the substring which need to be searched in the main string , if it is present means then it’ll return the first index of the substring found in the main string , if the number is less than the size of main array then it is present in the array.
+6. In c++ 1e5 is by default considered double and cant be used to declare array sizes , to use int to cast it to int type - x[(int)1e5 + 1]
+7. While(true){
+      
+          } - This means it will keep executing until it encounters a break statement .
+8.  p=s.find("AB");
+   	if(p!=-1){
+        s=s.erase(p,2);
+       In this code - p is an integer , s is the main string , and AB is the substring , if the substring is not found it’ll give us -1 as a output or else it’ll give the first index of that substring and for erasing - first we have to give the starting index and then the length of the element to be deleted .
+9. tolower(the character) - this can only be used for characters and it can’t be used for string , so run a for loop for the string and lower each characters .
+10. reverse(s.begin(),s.end()) - it reverses the whole string .
+11. https://codeforces.com/problemset/problem/1863/B 
+* 		        cin>>n;
+* 		        long long pos[n+1];
+* 		        long long x;
+* 		        for(long long i=1;i<=n;i++){
+* 		            cin>>x;
+* 		            pos[x]=i;
+* 		        }
+* 		        for(long long i=1;i<n;i++){
+* 		            if(pos[i+1]<pos[i]){
+* 		                c++;
+* 		            }
+* 		        }
+* 		        cout<<c<<endl;
+12. __gcd - this is the inbuilt function in c++ for GCD or HCF
+13. To find the maximum value using the max function use - max=INT_MIN —— and for calculating the minimum value using the min function use - INT_MAX . Explaining this in detail - the value of INT_MIN is -2147483648 , we use this while using max function bcoz this is like a random value where no number will be less than this , so in max function we use this , similarly INT_MAX value is 2147483647 which means no value can be greater than this , so in min function we use this .
+14. void fill(iterator begin, iterator end, type value); - we use the fill function to fill in the value of the same datatype from the beginning to the end . For eg. lets take an array , it is an integer so - fill(a,a+n,5); - this means that all the blocks of the array from 0 till n (here it is n and not n-1 like other things in coding) with 5 .
+15. Say for example a number(one digit) is in character datatype and if we want to make it to integer datatype , then we use c - ‘0’ , this is bcoz the ascii value of 0 is 48 and for eg. lets take the character as 8 , the ascii value of 8 is 56 , so 56 - 48 = 8 , we get as an integer .
+16. LCM of two numbers can also be = a*b/hcf(a,b) . That is (a*b)/__gcd(a,b).
+17. O(n) is faster than O(n root n) .
+18. In some cases , the array doesn’t work properly bcoz - It’s because of creation of garbage values when the array is being created the arrays behave weirdly if you try to sort half filled array.
+19. Co prime numbers - two numbers which have gcd/hcf 1 is called co prime numbers .
+20. How to typecast string into an integer , just use the function stoi() . For eg. string s;  cin>>s; int x; x=stoi(s); cout<<x<<endl;
+21. How to find LCM of two numbers - first find the gcd of those 2 numbers , then lcm= (a*b)/gcd.
+22. If u want to find the sum from 1 to N , then just do - (N*(N+1))/2.
+23. How to sort a string - sort(s.begin(),s.end())
+24. Use min_element(a,a+n) and max_element(a,a+n) to find the minimum and maximum elements , this is for array , for vector use a.begin(),a.end().
+25. Use stoi() function to convert string to an integer 
+26. getline(cin, s) - use this to a line with many words including spaces in between , bcoz in string if it encounters a space then it’ll stop there .
+27. cout<<fixed<<setprecision(5)<<myPow(a,b)<<endl; - This to print the number of decimals , so we use setprecision .
+28. TO FIND THE SIZE OF THE LARGEST COMMON SUBSTRING.
+- [ ] void lcsubstr(string str1,string str2)
+- [ ] {
+- [ ]       int ans = 0;
+
+- [ ]     for (int i = 0; i < str1.length(); i++) 
+- [ ]     {
+- [ ]          for (int j = 0; j < str2.length(); j++) {
+- [ ]         int k = 0;
+- [ ]         while ((i + k) < str1.length() && (j + k) < str2.length() 
+- [ ]                 && str1[i + k] == str2[j + k]) 
+- [ ]         {
+- [ ]             k = k + 1;
+- [ ]         }
+
+- [ ]         ans = max(ans, k);
+- [ ]        }
+- [ ]     }
+- [ ]       return ans;
+- [ ] }
+1. LCM of 2 numbers - (a/__gcd(a,b))*b.
+2. string s;  s=string(4,'B'); — this prints BBBB , this function is similar to the one in vector .
+3. U can use a for loop i from 0 to 60 and if((a&(1LL<<i))!=0) means ith bit is set in a. TO FIND THE FIRST SET BIT FROM RIGHT SIDE.
+4. For modular division , if the number is positive we do number%MOD else if the number is negative then we do (((number%MOD)+MOD)%MOD).
+5. accumulate(first, last, sum);  - This function returns the sum of all the values lying in a range between [first, last) with the variable sum.
+6. We use 0LL in CP , here 0 means int and LL means long long , so this will keep it under the long long limit.
+7. Every time instead of sqrt() use sqrtl()
+8. Convert binary into decimal - a_int.to_ulong()
+9. Find subset using bit mask 
+			int m = (1<<n);
+* 		for(int i=0;i<m;i++){
+* 		        int sum = 0;
+* 		        for(int bits = 0;bits<n;bits++){
+* 		            if(i &(1<<bits))sum+=arr[bits];
+* 		            else sum-=arr[bits];
+* 		        }
+* 		        
+* 		        if(sum%360==0){
+* 		            flag++;
+* 		            break;
+* 		        }
+* 		    }
+
+38. CUSTOM COMPARITOR 
+First element is greater and if it is equal then second element which is smaller is choosen 
+bool customComparator(const pair<int, int>& a, const pair<int, int>& b) { 
+// If  the first elements are different, compare them 
+if (a.first != b.first) { 
+	return a.first > b.first; 
+} 
+// If the first elements are equal, compare the second elements 
+	return a.second < b.second; 
+}
+
+1. THE TIME COMPLEXITY OF HARMONIC SERIES IS LOG N 
+CODE : 
+for(int j=num;j<=maxi;j+=num){
+           
+ }
+SOMETHING LIKE INCREMENTING EVERY TIME 
+
+41. THIS IS TO FIND HOW MANY 2’S ARE THERE IN THE GIVEN NUMBER’S FACTORIAL
+LIKE BREAK DOWN IT INTO PRIME FACTORS AND GET THE COUNT OF THE 2 IN IT
+
+* 		ll pow2(ll k) {
+* 			ll ans=0;
+* 			while(k) {
+* 				ans+=(k/2);
+* 				k/=2;
+* 			}
+* 			return ans;
+* 		}
+
+42. memset(dp, -1 , 3);   - this is nothing but filing the dp array with -1 till the size of 3 
+43. How to get 2 power some number in a single go without running any loops , its simple 
+	int ans;
+    	int ok;
+    	ok=1;
+    	ans=(ok<<10);
+    	cout<<ans<<endl;
+44. HOW TO FIND 2 POWER SOMETHING OR ANY POWER SOMETHING ALONG WITH MOD FOR HUGE NUMBERS
+long long mod_pow(long long base, int exp, int mod) {
+    long long result = 1;
+    base = base % mod;
+    while (exp > 0) {
+        if (exp % 2 == 1)
+            result = (result * base) % mod;
+        exp = exp >> 1;
+        base = (base * base) % mod;
+    }
+    return result;
+}
+45. Try to not convert an integer to string using to_string bcoz for big numbers it doesn’t work , so it’s better to take the input as a string itself 
+46. 
+
+
+
+
+
+
+
+
+￼
+￼
+￼
