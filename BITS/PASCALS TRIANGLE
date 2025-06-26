@@ -1,0 +1,73 @@
+PASCALS TRIANGLE 
+
+Three types 
+
+1. Print i-th row and j-th col value in the pascals triangle 
+
+NOTE : CHANGE IT TO i-1 and j-1 before calling the below function 
+
+CODE : 
+
+int nCr(int n, int r){
+	int res=1;
+	for(int I=0;i<r;i++){
+		res=res * (n-i) ;
+		res=res / (I+1) ;
+	}
+
+	return res;
+}
+
+
+
+
+
+2. Print all the values of the given row in the pascals triangle 
+
+vector<int>v;
+v.push_back(1);  // because in any row the first element is 1 
+int ans = 1 ;
+for(int col=1; col<row ; col++){
+	ans = ans * (row - col) ;
+	ans = ans / col ;
+	v.push_back(ans);
+}
+
+// now print the vector 
+
+
+
+
+
+
+
+
+
+3. Print the entire Pascals triangle  
+
+
+// outside function 
+
+vector <int> generateRow (int row){
+	vector<int>v;
+	v.push_back(1);  // because in any row the first element is 1 
+	int op = 1 ;
+	for(int col=1; col<row ; col++){
+		op = op * (row - col) ;
+		op = op / col ;
+		v.push_back(op);
+	}
+
+	return v;
+
+}
+
+// main function 
+
+vector <vector <int> > ans ;
+for(int i = 1 ; i <= n ; i++) {
+	ans . push_back ( generateRow(i));
+}
+
+// print the ans vector of vector 
+
