@@ -1,0 +1,54 @@
+Smallest Prime Factor 
+
+THIS IS TO FIND ALL THE PRIME FACTORS OF A NUMBER AND THIS IS THE MOST OPTIMIZED WAY TO FIND IT .
+
+
+
+
+// g++-13 r1.cpp -ld_classic
+#include<bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp> 
+#include <ext/pb_ds/assoc_container.hpp>
+#define int long long
+#define MOD 1000000007
+using namespace std;
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
+//           float/variable  greater / less_equal or greater_equal - multiset
+// pbds functions - *A.find_by_order(0) = indexing 0th index
+// pbds functions - A.order_of_key(6) = no. of elements smaller than 6
+map<int,int>mp;
+
+
+void SieveOfEratosthenes(int n)
+{
+   vector<bool> prime(n + 1, true);
+  for (int p = 2; p * p <= n; p++) {
+        if (prime[p] == true) {
+            for (int i = p * p; i <= n; i += p){
+               prime[i] = false;
+                //mp[i]=p;
+                int val;
+                val=mp[i];
+                int mini;
+                mini=min(val,p);
+                mp[i]=mini;
+            }
+                
+        }
+    }
+}
+
+
+signed main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    for(int i=1;i<=200000;i++){
+      mp[i]=i;
+   }
+     SieveOfEratosthenes(200000);
+     for(int i=1;i<=100;i++){
+      cout<<mp[i]<<endl;
+     }
+    return 0;
+}
