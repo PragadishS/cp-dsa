@@ -1,0 +1,17 @@
+DFS base code 
+
+const int N = 1000005;
+
+vector<int> adj_list[N]; 
+// list of vectors 
+// fill values in adj_list
+
+bool visited[N];
+
+void dfs(int current){
+visited[current] = true;
+for (int next_vertex : adj_list [current]){
+     if(visited[next vertex]) continue;
+      dfs (next vertex);
+}
+}
