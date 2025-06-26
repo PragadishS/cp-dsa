@@ -1,0 +1,93 @@
+ARTICULATION POINT IN GRAPH
+
+
+It is where if remove any node and all its edge then the graph which is initially a single component will be broken down into many components
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int timer=0;
+
+void dfs(int x,int par, vector<int> &vis, int tin[], int low[], vector<int> &mark, vector<int>adj[]){
+   vis[x]=1;
+   tin[x]=timer;
+   low[x]=timer;
+
+   timer++;
+
+   int child=0;
+
+   for(int i=0;i<adj[x].size();i++){
+      int too;
+      too=adj[x][i];
+      if(par==too){
+         continue;
+      }
+      if(vis[too]==0){
+         dfs(too,x,vis,tin,low,mark,adj);
+         low[x]=min(low[x],low[too]);
+
+         if(low[too]>= tin[x] && par!=-1){
+            mark[x]=1;
+         }
+         child++;
+      }else{
+         low[x]=min(low[x],tin[too]);
+      }
+   }
+
+   if(child>1 && par==-1){
+      mark[x]=1;
+   }
+}
+
+
+ 
+int main(){
+   int n;
+   cin>>n;
+   int  E;
+   cin >> E;
+   vector<int>adj[n+1];
+   for(int i = 0; i < E; i++){
+      int u, v;
+      cin >> u >> v;
+      adj[u].push_back(v);
+      adj[v].push_back(u);
+   }
+
+
+   vector<int> vis(n,0);
+   vector<int> mark(n,0);
+   int tin[n];
+   int low[n];
+   
+
+   for(int i=0;i<n;i++){
+      if(vis[i]==0){
+         dfs(i,-1,vis,tin,low,mark,adj);
+      }
+   }
+
+   vector<int>ans;
+   for(int i=0;i<n;i++){
+      if(mark[i]==1){
+         ans.push_back(i);
+      }
+   }
+
+   if(ans.size()==0){   
+      cout<<-1<<endl;
+   }else{   
+      for(int i=0;i<ans.size();i++){      
+         cout<<ans[i]<<" ";
+      }
+      cout<<endl;
+   }
+
+}
+   
+
+
+
