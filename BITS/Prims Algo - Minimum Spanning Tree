@@ -1,0 +1,82 @@
+Prims Algo - Minimum Spanning Tree
+
+
+
+NOTE : TO CHECK IF ALL THE NODES ARE IN THE SINGLE COMPONENT , WHAT WE CAN DO IS AFTER FINISHING ALL THE PRIORITY QUEUE THINGS , WE CAN RUN THROUGH THE VISITED VECTOR TO CHECK IF ALL THE NODES ARE VISITED , IF ANY IS UNVISITED THEN MINIMUM SPANNING TREE IS NOT POSSIBLE 
+
+
+TIME COMPLEXITY = E log E (E is the edges)
+
+
+
+// PRIMS ALGO - Minimum Spanning Tree
+#include<bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp> 
+#include <ext/pb_ds/assoc_container.hpp>
+#define int long long
+#define MOD 1000000007
+using namespace std;
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
+
+signed main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int v,e;
+    cin>>v>>e;
+    map<int,vector<pair<int,int>>>adj;
+    vector<pair<int,int>>mst_edges;
+    for(int i=0;i<e;i++){
+      int e1,e2,wt;
+      cin>>e1>>e2>>wt;
+      adj[e1].push_back({e2,wt});
+      adj[e2].push_back({e1,wt});
+    }
+    int sum=0;
+    vector<int>vis(v,0);
+    priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
+
+    // initially push node 0 with parent -1 and weight 0
+    pq.push({0,{0,-1}});// wt , node , parent
+    while(!pq.empty()){
+      int len,node,parent;
+      len=pq.top().first;
+      node=pq.top().second.first;
+      parent=pq.top().second.second;
+      pq.pop();
+      // always check whether it is unvisted or not and then proceed
+
+      if(vis[node]==0){
+         vis[node]=1; // mark the node as visited
+
+         sum+=len; // add the weight to the total sum
+
+         // push every edge apart from the starting dummy one 
+         if(parent!=-1){
+            mst_edges.push_back({node,parent}); // add the edges to the minimum spanning tree edge vector
+         } 
+
+         // going through the adj list 
+         for(int i=0;i<adj[node].size();i++){
+            int too,cost;
+            too=adj[node][i].first;
+            cost=adj[node][i].second;
+
+            // push it into the PQ only if it is unvisited
+            if(vis[too]==0){
+               pq.push({cost,{too,node}});
+            }
+         }
+      }
+    }
+
+    cout<<"The minimum spanning tree cost is "<<sum<<endl;
+
+    cout<<"The edges of the minimum spanning tree are "<<endl;
+
+    for(int i=0;i<mst_edges.size();i++){
+      cout<<mst_edges[i].first<<" "<<mst_edges[i].second<<endl;
+    }
+
+    return 0;
+}
