@@ -1,0 +1,133 @@
+KRUSKALS ALGO - MINIMUM SPANNING TREE
+
+It is nothing but finding the minimum spanning tree using Disjoint Set Union 
+
+
+Time complexity - O(E log E).   E - no. of edges
+
+// this is bcoz in terms of vector We sort it so it takes ElogE , where as in priority queue it is logE for PQ and E for edges so both are more or less same 
+
+
+
+
+// KRUSKALS ALGO 
+#include<bits/stdc++.h>
+#define int long long
+#define MOD 1000000007
+using namespace std;
+
+class DisjointSet{
+   vector<int>rank,parent,size;
+   public:
+   DisjointSet(int n){
+      rank.resize(n+1,0);
+      parent.resize(n+1);
+      size.resize(n+1);
+
+      for(int i=0;i<=n;i++){
+         parent[i]=i;
+         size[i]=1;
+      }
+   }
+
+   int findUPar(int node){
+      if(node == parent[node]){
+         return node;
+      }else{
+         return parent[node]=findUPar(parent[node]);
+      }
+   }
+
+   void unionbyRank(int u, int v){
+      int ult_u=findUPar(u);
+      int ult_v=findUPar(v);
+
+      if(ult_u==ult_v){
+         return;
+      }
+
+      if(rank[ult_u]<rank[ult_v]){
+         parent[ult_u]=ult_v;
+      }else if(rank[ult_v]<rank[ult_u]){
+         parent[ult_v]=ult_u;
+      }else{
+         parent[ult_v]=ult_u;
+         rank[ult_u]++;
+      }
+   }
+
+   void unionbySize(int u, int v){
+      int ult_u=findUPar(u);
+      int ult_v=findUPar(v);
+
+      if(ult_u==ult_v){
+         return;
+      }
+
+      if(size[ult_u]<size[ult_v]){
+         parent[ult_u]=ult_v;
+         size[ult_v]+=size[ult_u];
+      }else{
+         parent[ult_v]=ult_u;
+         size[ult_u]+=size[ult_v];
+      }
+   }
+};
+
+
+signed main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int v,e;
+    cin>>v>>e;
+    // declare DSU
+   DisjointSet ds(v); 
+   vector<pair<int,int>>mst_edges;// this the vector which will have all the final edeges of the minimum spanning tree
+    //priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
+    // initially sort all the edges according to thier weights and then proceed 
+    // here instead of using priority queue we can also use vector and sort it
+    vector<pair<int,pair<int,int>>>pq;
+    for(int i=0;i<e;i++){
+      int e1,e2,wt;
+      cin>>e1>>e2>>wt;
+      pq.push_back({wt,{e1,e2}});
+    }
+    sort(pq.begin(),pq.end());
+    int sum=0;// minimum sum of the MST
+   // while(!pq.empty()){
+   for(int i=0;i<pq.size();i++){
+      int fir,sec,cost;
+      //cost=pq.top().first;
+      //fir=pq.top().second.first;
+      //sec=pq.top().second.second;
+      //pq.pop();
+      cost=pq[i].first;
+      fir=pq[i].second.first;
+      sec=pq[i].second.second;
+      
+      int par1,par2;
+      par1=ds.findUPar(fir);
+      par2=ds.findUPar(sec);
+      if(par1==par2){
+         // if the top hierarchy or ultimate parent of both the nodes are same , then it is useless to take this edge as both of the nodes are already in the same component
+         // do nothing 
+      }else{
+         // here the top hierarchy or ultimate parent of both the nodes are completely different 
+         // so add their edge weight to the sum , push them into the final mst_edges and also union them 
+         sum+=cost;
+         mst_edges.push_back({fir,sec});
+         ds.unionbyRank(fir,sec);
+      }
+    //}
+}
+
+    cout<<"the minimum sum for MST is "<<sum<<endl;
+    cout<<"the MST edges are "<<endl;
+    for(int i=0;i<mst_edges.size();i++){
+      int p1,p2;
+      p1=mst_edges[i].first;
+      p2=mst_edges[i].second;
+      cout<<p1<<" "<<p2<<endl;
+    }
+    return 0;
+}
