@@ -1,0 +1,105 @@
+Disjoint Set Union - Striver’s code 
+
+
+// This is simply finding the top most node for all the nodes and union means joining both the separate components into a single component and giving them the top most node as a single component
+
+TIME COMPLEXITY TO FIND UNION AND TOP HIERARCHY/ULTIMATE PARENT IS = O(4 alpha) , alpha symbol , alphas value is almost equal to 1 , so the time complexity is constant that is O(1)
+
+NOTE : Either use union by size or rank , don’t use both at the same time , striver prefers to use union by size bcoz it is more intuitive
+
+
+// Disjoint set union - striver code
+
+#include<bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp> 
+#include <ext/pb_ds/assoc_container.hpp>
+#define int long long
+#define MOD 1000000007
+using namespace std;
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
+
+class DisjointSet{
+   vector<int>rank,parent,size;
+   public:
+   DisjointSet(int n){
+      rank.resize(n+1,0);
+      parent.resize(n+1);
+      size.resize(n+1);
+
+      for(int i=0;i<=n;i++){
+         parent[i]=i;
+         size[i]=1;
+      }
+   }
+
+   int findUPar(int node){
+      if(node == parent[node]){
+         return node;
+      }else{
+         return parent[node]=findUPar(parent[node]);
+      }
+   }
+
+   void unionbyRank(int u, int v){
+      int ult_u=findUPar(u);
+      int ult_v=findUPar(v);
+
+      if(ult_u==ult_v){
+         return;
+      }
+
+      if(rank[ult_u]<rank[ult_v]){
+         parent[ult_u]=ult_v;
+      }else if(rank[ult_v]<rank[ult_u]){
+         parent[ult_v]=ult_u;
+      }else{
+         parent[ult_v]=ult_u;
+         rank[ult_u]++;
+      }
+   }
+
+   void unionbySize(int u, int v){
+      int ult_u=findUPar(u);
+      int ult_v=findUPar(v);
+
+      if(ult_u==ult_v){
+         return;
+      }
+
+      if(size[ult_u]<size[ult_v]){
+         parent[ult_u]=ult_v;
+         size[ult_v]+=size[ult_u];
+      }else{
+         parent[ult_v]=ult_u;
+         size[ult_u]+=size[ult_v];
+      }
+   }
+};
+
+signed main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    DisjointSet ds(7); // declaring the size
+    ds.unionbyRank(1,2);
+    ds.unionbyRank(2,3);
+    ds.unionbyRank(4,5);
+    ds.unionbyRank(6,7);
+    ds.unionbyRank(5,6);
+
+    if(ds.findUPar(3)==ds.findUPar(7)){
+      cout<<"same"<<endl;
+    }else{
+      cout<<"not same"<<endl;
+    }
+
+    ds.unionbyRank(3,7);
+
+    if(ds.findUPar(3) == ds.findUPar(7)){
+      cout<<"same"<<endl;
+    }else{
+      cout<<"not same"<<endl;
+    }
+    return 0;
+}
