@@ -1,0 +1,4 @@
+DP
+
+1. To fill a 2D vector with -1 , we do vector<vector<int>>dp(n+1,vector<int>((x+1),-1));
+2. 
