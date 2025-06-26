@@ -1,0 +1,9 @@
+Minimum Spanning Tree
+
+
+
+Spanning tree - It is a tree where there is N nodes and N-1 edges , also all nodes are reachable from each other . (It is undirected and weighted )
+
+There can be more than 1 spanning tree in a graph and the minimum among them is called as the minimum spanning tree
+(The minimum is calculated using the sum of all the edge weights that we take in the spanning tree)
+
