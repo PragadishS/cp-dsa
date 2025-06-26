@@ -1,0 +1,84 @@
+BRIDGES IN GRAPH - TARJANS ALGORITHM
+
+It is where if remove any edge then the graph which is initially a single component will be broken down into many components
+
+
+#include<bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp> 
+#include <ext/pb_ds/assoc_container.hpp>
+#define int long long
+#define MOD 1000000007
+using namespace std;
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
+
+vector<int>adj[100005];
+map<int,int>vis;
+int timer=1;
+int tin[100005];// time in
+int low[100005];// lowest time for this node
+
+vector<vector<int>>bridges;
+
+void dfs(int x,int par){
+   vis[x]=1;
+   tin[x]=timer;
+   low[x]=timer;
+   timer++;
+
+   for(int i=0;i<adj[x].size();i++){
+      int too;
+      too=adj[x][i];
+      if(too==par){
+         continue;/// never touch the parent
+      }else{
+         if(vis[too]==0){
+            dfs(too,x);
+            low[x]=min(low[x],low[too]);
+
+            // now we'll check if this is bridge
+            if(low[too]>tin[x]){
+               vector<int>pl;
+               pl.push_back(too);
+               pl.push_back(x);
+               bridges.push_back(pl);
+            }
+
+         }else{
+            low[x]=min(low[x],low[too]);
+         }
+      }
+   }
+}
+
+signed main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+   int n;
+   cin>>n;
+   int e;
+   cin>>e;
+
+   for(int i=0;i<e;i++){
+      int e1,e2;
+      cin>>e1>>e2;
+      adj[e1].push_back(e2);
+      adj[e2].push_back(e1);
+
+   }
+
+   dfs(0,-1); // node and parent
+
+   for(int i=0;i<bridges.size();i++){
+      int siz;
+      siz=bridges[i].size();
+      sort(bridges[i].begin(),bridges[i].end());
+      for(int j=0;j<siz;j++){
+         cout<<bridges[i][j]<<" ";
+      }
+      cout<<endl;
+   }
+
+    return 0;
+}
