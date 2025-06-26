@@ -1,0 +1,21 @@
+Set 
+* 		int first;
+* 		first=*st.begin();
+
+* 		 auto it=st.begin();
+* 		 st.erase(it);
+* 
+
+	pair<int,int>fg=*st.begin();
+         int fir,sec;
+         fir=fg.first;
+         sec=fg.second;
+
+
+auto it = se.lower_bound(i);
+    sum += *it; // *it = i
+for set use this for binary search and not the ones with .begin() , .end() and etc as this is better time complexity 
+
+For removing a single number from a multiset 
+First use .find() to get the iterator and then remove that iterator now it’ll not remove all the occurrence of that number 
+
