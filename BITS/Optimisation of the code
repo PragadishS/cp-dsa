@@ -1,0 +1,11 @@
+Optimisation of the code 
+
+1. 2 statements of fast I/o
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+2. Instead of using endl use “\n”
+3. Use compound assignment operator every time - a=a+1 / a+=1 . 
+4. We can use bitwise operators instead of arithmetic operators because bitwise operators are faster than arithmetic operators .
+5. INSTEAD OF USING MP[A]!=0 TO CHECK WHETHER THE ELEMENT IS THERE OR NOT , USE MP.FIND(A)!=MP.END() , BCOZ IF WE USE MP[A]!=0 , IT CHECKS AND IT IS NOT ZERO THEN OK , BUT IF IT IS ZERO IT WILL ASSSIGN THAT ZERO TO A INCREASING THE TIME COMPLEXITY IE LETS ASSUME THE MAP AS AN ARRAY , A WAS NOT EVEN PRESENT IN THE ARRAY BUT IF WE USE MP[A]!=0 , THEN A WILL BE ADDED TO THE ARRAY INCREASING THE TIME COMPLEXITY 
+6. Where ever there is a possibility of using array or vector instead of map then make use of it bcoz for map each operation is O(LogN) whereas for an array or vector it is O(1) . 
+7. When ever we get TLE in a memoized DP code try to put & or call by reference for all the things that are possible , that ur passing the rec function
