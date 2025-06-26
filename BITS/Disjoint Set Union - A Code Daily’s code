@@ -1,0 +1,42 @@
+Disjoint Set Union - A Code Daily’s code 
+
+// Disjoint Set Union
+// This is simply finding the top most node for all the nodes and union means joining both the separate components into a single component and giving them the top most node as a single component
+
+TIME COMPLEXITY TO FIND UNION AND TOP HIERARCHY/ULTIMATE PARENT IS = O(4 alpha) , alpha symbol , alphas value is almost equal to 1 , so the time complexity is constant that is O(1)
+
+#include<bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp> 
+#include <ext/pb_ds/assoc_container.hpp>
+#define int long long
+#define MOD 1000000007
+using namespace std;
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
+
+vector<int>parent;
+
+int find_set(int v){ // find the top hierarchy of the node v
+   if(v==parent[v]){
+      return v;
+   }else{
+      return find_set(parent[v]);
+   }
+}
+
+void union_sets(int a,int b){ // node A and node B are becoming friends
+   int pa=find_set(a); // top hierarchy of node A
+   int pb=find_set(b); // // top hierarchy of node B
+   if(pa==pb){
+      return; // dont do anything 
+   }else if(pa!=pb){
+      parent[pb]=pa; // make the parent of node B as parent of node A
+   }
+}
+
+signed main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    dsu();
+    return 0;
+}
