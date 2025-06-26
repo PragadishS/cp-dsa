@@ -1,0 +1,329 @@
+2D- LINKED LIST
+
+#include<bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp> 
+#include <ext/pb_ds/assoc_container.hpp>
+#define int long long
+#define MOD 1000000007
+
+using namespace std;
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
+
+struct Node{
+   public:
+   int data;
+   Node* next;
+   Node* prev;
+
+   Node(int data1, Node* next1, Node* prev1){
+      data=data1;
+      next=next1;
+      prev=prev1;
+   }
+   Node(int data1){
+       data=data1;
+       next=nullptr;
+       prev=nullptr;
+   }
+};
+
+
+Node* convert(vector<int>&arr){
+   Node* head;
+   head= new Node(arr[0]);
+   Node* move;
+   move=head;
+   for(int i=1;i<arr.size();i++){
+      Node* temp;
+      temp= new Node(arr[i],NULL,move);
+      move->next=temp;
+      move=temp;
+   }
+   return head;
+}
+
+vector<int>print(Node* head){
+   vector<int>red;
+   Node* temp = head;
+
+   while(temp!=nullptr){
+      int ui;
+      ui=temp->data;
+      red.push_back(ui);
+      temp=temp->next;
+   }
+   return red;
+}
+
+int length(Node* head){
+   int cou=0;
+
+   Node* temp = head;
+
+   while(temp!=nullptr){
+      int ui;
+      ui=temp->data;
+      temp=temp->next;
+      cou++;
+    }
+
+    return cou;
+
+}
+
+bool verify(Node* head , int num){
+   int found=0;
+
+   Node* temp = head;
+
+   while(temp!=nullptr){
+      int ui;
+      ui=temp->data;
+      if(ui==num){
+         found++;
+      }
+      temp=temp->next;
+    }
+
+    if(found==0){
+      return false;
+    }else{
+      return true;
+    }
+
+}
+
+Node* removehead(Node* head){
+   if(head==NULL || head->next==NULL){
+      return NULL;
+   }
+   Node* temp;
+   temp=head;
+   head=head->next;
+   temp->next=NULL;
+   head->prev=NULL;
+   free(temp);
+   return head;
+}
+
+Node* removetail(Node* head){
+   if(head==NULL || head->next==NULL){
+      return NULL;
+   }
+   Node* temp;
+   temp=head;
+   while(temp->next!=NULL){
+      temp=temp->next;
+   }
+   Node* last;
+   last=temp->prev;
+   last->next=NULL;
+   temp->prev=NULL;
+   free(temp);
+   return head;
+}
+
+Node* removeAtPos(Node* head , int ind){
+   // assuming 1 based indexing 
+   int cou=0;
+   Node* temp;
+   temp=head;
+   while(true){
+      cou++;
+      if(cou==ind){
+         break;
+      }
+      temp=temp->next;
+   }
+   Node* fir;
+   Node* sec;
+   fir=temp->prev;
+   sec=temp->next;
+   temp->prev=NULL;
+   temp->next=NULL;
+   free(temp);
+   fir->next=sec;
+   sec->prev=fir;
+   return head;
+}
+
+
+Node* removeVal(Node* head, int val){
+   Node* temp;
+   temp=head;
+   while(true){
+      int ui;
+      ui=temp->data;
+      if(ui==val){
+         break;
+      }
+      temp=temp->next;
+   }
+
+   Node* fir;
+   Node* sec;
+   fir=temp->prev;
+   sec=temp->next;
+   temp->prev=NULL;
+   temp->next=NULL;
+   free(temp);
+   fir->next=sec;
+   sec->prev=fir;
+   return head;
+}
+
+Node* inserthead(Node* head , int val){
+   Node* temp;
+   temp=head;
+   Node* op = new Node(val,head,NULL);
+   head=op;
+   temp->prev=op;
+   return head;
+}  
+
+Node* insertend(Node* head , int val){
+   Node* temp;
+   temp=head;
+   while(temp->next!=NULL){
+      temp=temp->next;
+   }
+   Node* fix;
+   fix=temp;
+   Node* newi = new Node(val,NULL,fix);
+   fix->next=newi;
+   return head;
+}
+
+Node* insertpos(Node* head , int val , int pos){
+   //assuming it to be 1 based indexing 
+   Node* temp;
+   temp=head;
+   int cou=0;
+   while(true){
+      cou++;
+      if(cou==pos){
+         break;
+      }
+
+      temp=temp->next;
+   }
+   Node* fix;
+   fix=temp->prev;
+   Node* newi  = new Node(val,temp,fix);
+   fix->next=newi;
+   temp->prev=newi;
+   return head;
+}
+
+Node* insertBeforeVal(Node* head , int val , int num){
+   // do like kinda same thing
+}
+
+Node* insertAfterVal(Node* head , int val , int num){
+   // do like kinda same thing
+   
+}
+
+signed main(){
+    vector<int>arr = {2,5,8,7};
+
+    Node* y = new Node(arr[0],nullptr);
+
+    cout<<y<<endl; // this print the address of the first index
+
+    cout<<y->data<<endl;// this print the value of the first index
+
+    Node* head = convert(arr);// this is a must as this creates a link with every node that is it creates the linked list 
+
+    cout<<head->data<<endl;//this also prints the value in the 0th index
+
+    // print the whole linked list
+    vector<int>printy = print(head);
+    for(int i=0;i<printy.size();i++){
+      cout<<printy[i]<<" ";
+    }
+    cout<<endl;
+
+   // to find the length of the linked list
+    int siz=length(head);
+    cout<<siz<<endl;
+
+   //to check if certain number is there in the linked list or not 
+    bool check = verify(head ,5);
+    if(check==false){
+      cout<<"NOT FOUND"<<endl;
+    }else{
+      cout<<"FOUND"<<endl;
+    }
+
+   //remove the first node in the linked list 
+   head = removehead(head);
+    // printing it after the change 
+    vector<int>updat = print(head);
+    for(int i=0;i<updat.size();i++){
+      cout<<updat[i]<<" ";
+    }
+    cout<<endl;
+
+   //remove the last node in the linked list 
+   head = removetail(head);
+   //printing it after the change 
+    vector<int>lope = print(head);
+    for(int i=0;i<lope.size();i++){
+      cout<<lope[i]<<" ";
+    }
+    cout<<endl;
+
+   //to delete a node in specific postion
+   //also check whether the given position is there or not
+   // if the position is first or last , then dont use this to delete , use the above declared function
+   head = removeAtPos(head , 4);
+   //printing it after the change 
+   vector<int>dime = print(head);
+    for(int i=0;i<dime.size();i++){
+      cout<<dime[i]<<" ";
+    }
+    cout<<endl;
+
+   //to delete a node with specific value
+   // this doesnt work if the value is in the 0th index or the last index , so handle it separately
+    head = removeVal(head, 100);
+   //printing it after the change 
+    vector<int>fine = print(head);
+    for(int i=0;i<fine.size();i++){
+      cout<<fine[i]<<" ";
+    }
+    cout<<endl;
+
+   //inserting a node at the first 
+    head = inserthead(head,21);
+    // now printing the updated one 
+    vector<int>wine = print(head);
+    for(int i=0;i<wine.size();i++){
+      cout<<wine[i]<<" ";
+    }
+    cout<<endl;
+   
+   ///inserting a node at the end
+    head = insertend(head,35);
+   // now printing the updated one 
+    vector<int>lut = print(head);
+    for(int i=0;i<lut.size();i++){
+      cout<<lut[i]<<" ";
+    }
+    cout<<endl;
+   
+   // inserting a node in a specific position
+   // this doent work if the position is 1 , so handle it separately
+    head = insertpos(head, 35 , 2); // one based indexing
+   // now printing the updated one 
+   vector<int>ui = print(head);
+   for(int i=0;i<ui.size();i++){
+      cout<<ui[i]<<" ";
+   }
+   cout<<endl;
+
+    return 0;
+}
+
