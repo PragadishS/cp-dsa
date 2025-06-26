@@ -1,0 +1,12 @@
+TIME COMPLEXITIES 
+
+1. PRIORITY QUEUE
+
+push() (Insertion) - O(logN)
+pop() (Deletion) - O(logN)
+top() (Access) - O(1)
+empty() - O(1)
+size() - O(1)
+
+
+2. 
