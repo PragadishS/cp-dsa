@@ -1,0 +1,64 @@
+Dijkstra Algorithm code in directed graph 
+
+// THIS CODE WORKS FOR UNDIRECTED ALSO , JUST ADD ONE EXTRA LINE UPDATING ADJ LIST 
+
+
+// g++-13 r1.cpp -ld_classic
+#include<bits/stdc++.h>
+#include <ext/pb_ds/tree_policy.hpp> 
+#include <ext/pb_ds/assoc_container.hpp>
+#define int long long
+#define MOD 1000000007
+using namespace std;
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds;
+//           float/variable  greater / less_equal or greater_equal - multiset
+// pbds functions - *A.find_by_order(0) = indexing 0th index
+// pbds functions - A.order_of_key(6) = no. of elements smaller than 6
+signed main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+
+    int nodes;
+    cin>>nodes;
+    int edges;
+    cin>>edges;
+    map<int,vector<pair<int,int>>>adj;
+    for(int i=0;i<edges;i++){
+      int u,v,w;
+      cin>>u>>v>>w;
+      adj[u].push_back({v,w});
+    }
+
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>q;
+    q.push({0,0});/// weight and node
+    vector<int>dis(nodes,INT_MAX);
+    dis[0]=0;
+    while(!q.empty()){
+      int no=q.top().first;
+      int wt=q.top().second;
+      q.pop();
+      for(int i=0;i<adj[no].size();i++){
+         int next,val;
+         next=adj[no][i].first;
+         val=adj[no][i].second;
+         if(dis[next]>wt+val){
+            dis[next]=wt+val;
+            q.push({next,dis[next]});
+         }
+      }
+    }
+
+    for(int i=0;i<nodes;i++){
+      cout<<dis[i]<<" ";
+    }
+    cout<<endl;
+
+
+    
+    return 0;
+}
+
+TIME COMPLEXITY = O((V+E) log V) 
+Log V is bcoz we are using priority queue
