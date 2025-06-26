@@ -1,0 +1,23 @@
+FINDING DIVISORS IN THE MOST OPTIMISED WAY 
+
+
+vector<int> getDivisors(int n) {
+    vector<int> divisors;
+
+    for (int i = 1; i * i <= n; ++i) {
+        if (n % i == 0) {
+            divisors.push_back(i);
+            if (i != n / i)  
+                divisors.push_back(n / i);
+        }
+    }
+
+   // std::sort(divisors.begin(), divisors.end()); // Optional: sort if needed
+    return divisors;
+}
+
+Int main(){
+	int n;
+	cin>>n; 	vector<int> divisors = getDivisors(n);
+	return 0;
+}
