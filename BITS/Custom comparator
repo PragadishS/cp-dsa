@@ -1,0 +1,12 @@
+Custom comparator 
+
+SORTING A PAIR WHERE THE FIRST ELEMENT IS SORTED ACCORDING TO GREATER AND THE SECOND ELEMENT IS SORTED ACCORDING TO LESSER 
+
+
+bool comparePairs(const pair<int, int>& a, const pair<int, int>& b) {
+    if (a.first != b.first) {
+        return a.first > b.first; // Sort first element in descending order
+    } else {
+        return a.second < b.second; // If first elements are equal, sort second in ascending order
+    }
+}
