@@ -1,0 +1,7 @@
+	VS CODE line to print time complexity in terms of milliseconds
+
+
+
+cerr<<"Time:"<<1000*((double)clock())/(double)CLOCKS_PER_SEC<<"ms\n";
+    // 1000 ms is 1 sec
+    return 0;
