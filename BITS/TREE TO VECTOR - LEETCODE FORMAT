@@ -1,0 +1,21 @@
+TREE TO VECTOR - LEETCODE FORMAT 
+
+vector<int>v;
+
+    int diameterOfBinaryTree(TreeNode* root) {
+
+        queue<TreeNode*>q;
+        q.push(root);
+        while(!q.empty()){
+            TreeNode *node=q.front();
+            q.pop();
+            v.push_back(node->val);
+            if(node->left!=NULL){
+                q.push(node->left);
+            }
+            if(node->right!=NULL){
+                q.push(node->right);
+            }
+        }
+        
+    }
