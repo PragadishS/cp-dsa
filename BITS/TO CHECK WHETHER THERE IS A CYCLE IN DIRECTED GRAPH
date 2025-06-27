@@ -12,27 +12,27 @@ typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_
 //           float/variable  greater / less_equal or greater_equal - multiset
 // pbds functions - *A.find_by_order(0) = indexing 0th index
 // pbds functions - A.order_of_key(6) = no. of elements smaller than 6
+
 vector<int>adj[100005];
 map<int,int>vis;
 int cycle=0;
 
-void dfs(int x){
-   if(vis[x]==-1){
-      cycle++;
-      return;
-   }
-   vis[x]=-1;
-   if(adj[x].size()!=0){
-      for(int i=0;i<adj[x].size();i++){
-         int num;
-         num=adj[x][i];
-         if(vis[num]!=1){
-            dfs(num);
-         }
-      }
-      vis[x]=1;
-   }
-}
+void dfs(int x) { 
+        vis[x] = -1; 
+
+        for (int num : adj[x]) {
+            if (vis[num] == -1) { 
+                cycle++;
+                return;
+            }
+            if (vis[num] == 0) { 
+                dfs(num);
+                if (cycle != 0) return; 
+            }
+           
+        }
+        vis[x] = 1;                                                 
+    }
 
 signed main(){
     ios_base::sync_with_stdio(false);
